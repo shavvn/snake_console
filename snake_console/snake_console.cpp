@@ -3,7 +3,7 @@
 HANDLE StdHandle = GetStdHandle(STD_OUTPUT_HANDLE);
 CONSOLE_CURSOR_INFO CursorInfo = {1, FALSE}; //Hide cursor
 COORD AppleCoord;
-COORD SnakeBody[20];
+COORD SnakeBody[100];
 COORD NextCoord;
 int snake_length = 2;
 //direction flags:
