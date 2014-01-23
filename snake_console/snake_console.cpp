@@ -3,7 +3,7 @@
 HANDLE StdHandle = GetStdHandle(STD_OUTPUT_HANDLE);
 CONSOLE_CURSOR_INFO CursorInfo = {1, FALSE}; //Hide cursor
 COORD AppleCoord;
-COORD SnakeBody[100];
+COORD SnakeBody[20];
 COORD NextCoord;
 int snake_length = 2;
 //direction flags:
@@ -89,7 +89,9 @@ void CreatApple(COORD *Coord) {
 			if (Coord->X == SnakeBody[i].X &&
 				  Coord->Y == SnakeBody[i].Y) {
 				apple_ok = FALSE;
-			} else {
+        break;
+			} 
+      else {
 				apple_ok = TRUE;
 			}
 		}
@@ -207,4 +209,10 @@ void GameOver(void) {
   SetConsoleTextAttribute(StdHandle, FOREGROUND_INTENSITY);
 	printf("Game Over");
   while (1);
+}
+
+long RandomPosition(void) {
+  long seed =0;
+  seed = seed * 22695477L + 1; 
+  return ((seed >> 16) & 0x7FFF);
 }

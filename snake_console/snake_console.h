@@ -16,4 +16,5 @@ void GameOn(void);
 void GameOver(void);
 bool CheckDead(void);
 void DisplaySnake(void);
+long RandomPosition(void);
 #endif 
