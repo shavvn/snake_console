@@ -171,6 +171,9 @@ void ReadKeyBoard(bool *pause_flag) {
   }
   if (_kbhit()) {
     char key = _getch();
+    if (key >= 'A' && key <= 'Z') {
+      key -= ('A' - 'a');
+    }
     switch (key) {
     case 'w':{  //up
                next_dir = 1;
