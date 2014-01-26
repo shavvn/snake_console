@@ -47,11 +47,15 @@ void GameInit(void) {
 //Game Logic
 void GameOn(void) {
   bool snake_dead = FALSE;
+  bool game_pause = FALSE;
   do {
     snake_dead = CheckDead();
-    ReadKeyBoard(); 
-    SnakeMove();
-    DisplaySnake();
+    ReadKeyBoard(&game_pause);
+    if (!game_pause) {
+      SnakeMove();
+      DisplaySnake();
+    }
+    else {}
   } while (!snake_dead);
   GameOver();
 }
@@ -133,8 +137,9 @@ void SnakeMove(void) {
     default: break;
 	}
 }
+
 //Display Snake
-void DisplaySnake(void) {
+void DisplaySnake() {
   COORD PrevCoord = SnakeBody[snake_length - 1];
   bool apple_get = FALSE;
   if (NextCoord.X == AppleCoord.X && 
@@ -159,7 +164,7 @@ void DisplaySnake(void) {
 }
 
 //read keyboard input
-void ReadKeyBoard(void) {
+void ReadKeyBoard(bool *pause_flag) {
   while (!_kbhit()) {
     Sleep(400);
     break;
@@ -182,6 +187,9 @@ void ReadKeyBoard(void) {
     case 'd':{  //right
                next_dir = 8;
                break;
+    }
+    case 'p':{  //pause
+               *pause_flag ^= TRUE;
     }
     default: break;
     }
