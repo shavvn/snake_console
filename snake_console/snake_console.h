@@ -4,6 +4,7 @@
 #include <conio.h>
 #include <stdio.h>
 #include <Windows.h>
+#include <time.h>
 //About Initializations
 void GameInit(void);
 void CreatApple(COORD *Coord);

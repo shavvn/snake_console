@@ -41,6 +41,21 @@ void GameInit(void) {
 	printf("  ");
 	//set apple
 	CreatApple(&AppleCoord);
+  //display guidance
+  SetConsoleTextAttribute(StdHandle, 0x0000|FOREGROUND_INTENSITY);
+  SetCoord(63, 3);
+  printf("Game Operations:\n");
+  SetCoord(63, 4);
+  printf("W: up\n");
+  SetCoord(63, 5);
+  printf("S: down\n");
+  SetCoord(63, 6);
+  printf("A: left\n");
+  SetCoord(63, 7);
+  printf("D: right\n");
+  SetCoord(63, 8);
+  printf("P: pause/continue\n");
+  //Rock on!
   GameOn();
 }
 
@@ -62,7 +77,7 @@ void GameOn(void) {
 
 //Check if snake is dead
 bool CheckDead(void) {
-  if (SnakeBody[0].X <= 0 || SnakeBody[0].X > 60 ||	//check if dead
+  if (SnakeBody[0].X <= 0 || SnakeBody[0].X >= 60 ||	//check if dead
     SnakeBody[0].Y <= 0 || SnakeBody[0].Y >= 24) {
     //GameOver();
     return TRUE;
@@ -164,13 +179,15 @@ void DisplaySnake() {
 }
 
 //read keyboard input
+//parameters:
+//  pause_flag: output parament, set pause_game flag to pause game
 void ReadKeyBoard(bool *pause_flag) {
   while (!_kbhit()) {
     Sleep(400);
     break;
   }
   if (_kbhit()) {
-    char key = _getch();
+    char key = _getch(); //getch() in C
     if (key >= 'A' && key <= 'Z') {
       key -= ('A' - 'a');
     }
@@ -192,11 +209,11 @@ void ReadKeyBoard(bool *pause_flag) {
                break;
     }
     case 'p':{  //pause
-               *pause_flag ^= TRUE;
+               *pause_flag ^= TRUE;  //toggle
     }
     default: break;
     }
-    Sleep(10);
+    //Sleep(10);
   }
   else {
     next_dir = current_dir;
